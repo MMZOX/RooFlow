@@ -46,8 +46,8 @@ echo "Copying specific configuration items..."
 
 # 1. Copy .roo directory (recursively)
 echo "Copying .roo directory..."
-# Use -T with cp to copy contents *into* the destination if it exists,
-# but here we expect ./ to exist and ./.roo not to, so standard -r is fine.
+# Remove destination directory if it exists, then copy
+rm -rf ./.roo
 cp -r "$CLONE_DIR/config/.roo" ./
 
 # 2. Copy specific config files
