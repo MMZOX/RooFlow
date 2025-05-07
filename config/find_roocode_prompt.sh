@@ -228,12 +228,19 @@ extract_system_prompt() {
             # Let's try the user's approach of searching for the string and then filtering.
             
             # Store results in an array to handle spaces in filenames
+            # Use a temporary file approach instead of process substitution
+            temp_mdfind_results=$(mktemp)
+            mdfind -onlyin "$HOME/Library/Application Support/Code/User" "$persona_string" 2>/dev/null > "$temp_mdfind_results"
+            
             # Initialize an empty array
             potential_prompt_files=()
-            # Populate the array using a while loop, compatible with older bash versions
+            # Populate the array using a while loop
             while IFS= read -r line; do
                 potential_prompt_files+=("$line")
-            done < <(mdfind -onlyin "$HOME/Library/Application Support/Code/User" "$persona_string" 2>/dev/null)
+            done < "$temp_mdfind_results"
+            
+            # Clean up temp file
+            rm -f "$temp_mdfind_results"
 
             if [ ${#potential_prompt_files[@]} -gt 0 ]; then
                 for prompt_file_path in "${potential_prompt_files[@]}"; do
