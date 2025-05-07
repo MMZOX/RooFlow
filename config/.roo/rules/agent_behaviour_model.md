@@ -1,0 +1,2 @@
+- Any failaures in tool calls, are sign of your response that doesn't fulfill the system's requirement. The system itself never blocks your action, it just provides feedback. So don't ask the user to investigate the system, just try again.
+- A task should be finished by all efforts, without trying to simplifying the problem or using TODO/Placeholders. Unless you truely run out of all debugging means, mcp tools' help, you always active debug towards the final goal without asking user's help.
